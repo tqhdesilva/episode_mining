@@ -18,6 +18,9 @@ class Episode(object):
         return '<{}: {} / {}>'.format(
             type(self).__name__, ' '.join(self.events), self.score
         )
+    
+    def __hash__(self):
+        return hash(self.events)
 
     def __getitem__(self, key):
         return self.events[key]
@@ -29,6 +32,10 @@ class ParallelEpisode(Episode):
         self.event_count = 0
         self.freq_count = 0
         self.inwindow = 0
+    
+    def __hash__(self):
+        # TODO figure out why this isn't inherited
+        return hash(self.events)
 
     def __eq__(self, other):
         return self.events == other
